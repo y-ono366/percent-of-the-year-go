@@ -1,18 +1,17 @@
 package message
 
 import (
-	"fmt"
 	"time"
 )
 
 func GetParcent() int {
-	getParcent := getArrParcentDays()
-	fmt.Println(getParcent)
-	return 3
+	sliceParcents := getArrParcentDays()
+	parcent := getKeyFromArrParcentDays(sliceParcents)
+	return parcent
 }
 
 func getArrParcentDays() []int64 {
-	getParcent := []int64{}
+	sliceParcents := []int64{}
 
 	loc, _ := time.LoadLocation("Asia/Tokyo")
 	start := time.Date(time.Now().Year(), 1, 1, 0, 0, 0, 0, loc)
@@ -21,8 +20,18 @@ func getArrParcentDays() []int64 {
 	oneParcentSec := oneYearTimestamp / 100
 
 	for i := 0; i <= 100; i++ {
-		getParcent = append(getParcent, (start.Unix() + (oneParcentSec * int64(i))))
+		sliceParcents = append(sliceParcents, (start.Unix() + (oneParcentSec * int64(i))))
 	}
 
-	return getParcent
+	return sliceParcents
+}
+
+func getKeyFromArrParcentDays(sliceParcents []int64) int {
+	nowUnix := time.Now().Unix()
+	for i := 0; i <= len(sliceParcents); i++ {
+		if sliceParcents[i] == nowUnix {
+			return i
+		}
+	}
+	return 0
 }
