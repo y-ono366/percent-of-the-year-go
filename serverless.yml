@@ -52,7 +52,7 @@ package:
    - ./bin/**
 
 functions:
-  hello:
+  twitter:
     handler: bin/main
 
 #    The following are a few example events you can configure
