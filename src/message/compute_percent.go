@@ -4,10 +4,10 @@ import (
 	"time"
 )
 
-func GetParcent() int {
+func GetParcent() (int,bool) {
 	sliceParcents := getArrParcentDays()
-	parcent := getKeyFromArrParcentDays(sliceParcents)
-	return parcent
+	parcent,isFlg := getKeyFromSliceParcentDays(sliceParcents)
+	return parcent,isFlg
 }
 
 func getArrParcentDays() []int64 {
@@ -26,12 +26,12 @@ func getArrParcentDays() []int64 {
 	return sliceParcents
 }
 
-func getKeyFromArrParcentDays(sliceParcents []int64) int {
+func getKeyFromSliceParcentDays(sliceParcents []int64) (int,bool) {
 	nowUnix := time.Now().Unix()
-	for i := 0; i <= len(sliceParcents); i++ {
+	for i := 0; i < len(sliceParcents); i++ {
 		if sliceParcents[i] == nowUnix {
-			return i
+			return i,true
 		}
 	}
-	return 0
+	return 0,false
 }

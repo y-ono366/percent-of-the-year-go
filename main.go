@@ -4,6 +4,7 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/y-ono366/percent-of-the-year-go/src/common"
 	"github.com/y-ono366/percent-of-the-year-go/src/message"
+	"fmt"
 )
 
 type Response struct {
@@ -12,9 +13,14 @@ type Response struct {
 
 func Handler() (Response, error) {
 	log := common.LogInit()
-	log.Print("test")
-	parcent := message.GetParcent()
-	log.Print(parcent)
+	parcent,isFlg := message.GetParcent()
+	if isFlg == false {
+		return Response{
+			Message: "Go Serverless v1.0! Your function executed successfully!",
+		}, nil
+	}
+	msg := message.CreateTweetMessage(parcent)
+	fmt.Println(msg)
 	return Response{
 		Message: "Go Serverless v1.0! Your function executed successfully!",
 	}, nil
