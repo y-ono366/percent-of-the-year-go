@@ -1,19 +1,22 @@
 package common
 
 import (
-	"log"
+	"github.com/sirupsen/logrus"
 	"os"
 )
 
-var Log *log.Logger
+var Log *logrus.Logger
 
-func LogInit() *log.Logger {
-	logging := log.New(os.Stdout, "", log.LstdFlags|log.Lshortfile)
-	logging.SetFlags(log.LstdFlags | log.Lshortfile)
-	Log = logging
+func LogInit() *logrus.Logger {
+	log := logrus.New()
+	log.Out = os.Stdout
+	log.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})
+
+	Log = log
 	return Log
+
 }
 
-func GetLog() *log.Logger {
+func GetLog() *logrus.Logger {
 	return Log
 }

@@ -3,13 +3,13 @@ package twitter
 import (
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
+	"github.com/sirupsen/logrus"
 	"github.com/y-ono366/percent-of-the-year-go/src/common"
-	"log"
 	"os"
 )
 
 var Env string
-var Log *log.Logger
+var Log *logrus.Logger
 
 type Twitter struct {
 	Client *twitter.Client
@@ -29,11 +29,11 @@ func (tw *Twitter) GetTwClient() {
 
 func (tw *Twitter) Post(msg string) {
 	if Env != "production" {
-		Log.Println(msg)
+		Log.Info(msg)
 	}
 	if Env == "production" {
 		if _, _, err := tw.Client.Statuses.Update(msg, nil); err != nil {
-			Log.Println(err)
+			Log.Error(err)
 		}
 	}
 }

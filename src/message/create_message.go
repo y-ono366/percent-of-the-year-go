@@ -1,15 +1,15 @@
 package message
 
 import (
+	"github.com/sirupsen/logrus"
 	"github.com/y-ono366/percent-of-the-year-go/src/common"
-	"log"
 	"strconv"
 	"strings"
 	"time"
 )
 
 var asciiArtMaxRow = 6
-var Log *log.Logger
+var Log *logrus.Logger
 
 func init() {
 	Log = common.GetLog()
