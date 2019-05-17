@@ -15,6 +15,10 @@ type Twitter struct {
 	Client *twitter.Client
 }
 
+func init() {
+	Log = common.GetLog()
+	Env = common.GetEnv()
+}
 func (tw *Twitter) GetTwClient() {
 	config := oauth1.NewConfig(os.Getenv("CONSUMER_KEY"), os.Getenv("CONSUMER_SECRET"))
 	token := oauth1.NewToken(os.Getenv("ACCESS_TOKEN"), os.Getenv("ACCESS_SECRET"))
@@ -24,8 +28,6 @@ func (tw *Twitter) GetTwClient() {
 }
 
 func (tw *Twitter) Post(msg string) {
-	Log = common.GetLog()
-	Env = common.GetEnv()
 	if Env != "production" {
 		Log.Println(msg)
 	}

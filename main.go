@@ -13,30 +13,19 @@ var Env string
 var Log *log.Logger
 var tw twitter.Twitter
 
-type Response struct {
-	Message string `json:"message"`
-}
-
 func init() {
 	Env = common.InitEnvironment()
 	Log = common.LogInit()
 }
 
-func Handler() (Response, error) {
+func Handler() {
 	parcent, isFlg := message.GetParcent()
 	if isFlg == false {
-		Log.Println("1%の進捗なし")
-		return Response{
-			Message: "1%の進捗なし",
-		}, nil
+		return
 	}
 	msg := message.CreateTweetMessage(parcent)
 	tw.GetTwClient()
 	tw.Post(msg)
-
-	return Response{
-		Message: "完了",
-	}, nil
 }
 
 func main() {

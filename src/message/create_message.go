@@ -1,12 +1,19 @@
 package message
 
 import (
+	"github.com/y-ono366/percent-of-the-year-go/src/common"
+	"log"
 	"strconv"
 	"strings"
 	"time"
 )
 
 var asciiArtMaxRow = 6
+var Log *log.Logger
+
+func init() {
+	Log = common.GetLog()
+}
 
 func CreateTweetMessage(parcent int) string {
 	loc, _ := time.LoadLocation("Asia/Tokyo")
