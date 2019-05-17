@@ -1,7 +1,6 @@
 package message
 
 import (
-	"github.com/y-ono366/percent-of-the-year-go/src/common"
 	"strconv"
 	"strings"
 	"time"

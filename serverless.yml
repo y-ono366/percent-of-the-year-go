@@ -56,7 +56,10 @@ functions:
     handler: bin/main
     environment:
       APP_ENV: "production"
-      ENV_FILE: ${file(.env)}
+      CONSUMER_KEY: ""
+      CONSUMER_SECRET: ""
+      ACCESS_TOKEN=11: ""
+      ACCESS_SECRET=q: ""
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
