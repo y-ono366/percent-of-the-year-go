@@ -1,7 +1,6 @@
 package message
 
 import (
-	"github.com/sirupsen/logrus"
 	"github.com/y-ono366/percent-of-the-year-go/src/common"
 	"strconv"
 	"strings"
@@ -9,11 +8,6 @@ import (
 )
 
 var asciiArtMaxRow = 6
-var Log *logrus.Logger
-
-func init() {
-	Log = common.GetLog()
-}
 
 func CreateTweetMessage(parcent int) string {
 	loc, _ := time.LoadLocation("Asia/Tokyo")
