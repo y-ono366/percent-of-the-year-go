@@ -1,24 +1,37 @@
 package twitter
 
 import (
-	"fmt"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
+	"github.com/y-ono366/percent-of-the-year-go/src/common"
+	"log"
 	"os"
 )
 
-var NewTwClient *twitter.Client
+var Env string
+var Log *log.Logger
 
-func GetTwClient() (*twitter.Client, error) {
+type Twitter struct {
+	Client *twitter.Client
+}
+
+func (tw *Twitter) GetTwClient() {
 	config := oauth1.NewConfig(os.Getenv("CONSUMER_KEY"), os.Getenv("CONSUMER_SECRET"))
 	token := oauth1.NewToken(os.Getenv("ACCESS_TOKEN"), os.Getenv("ACCESS_SECRET"))
 	httpClient := config.Client(oauth1.NoContext, token)
 	// Twitter client
-	client := twitter.NewClient(httpClient)
-	NewTwClient = client
-	tweet, resp, err := client.Statuses.Update("just setting up my twr", nil)
-	fmt.Println(tweet)
-	if resp != nil {
+	tw.Client = twitter.NewClient(httpClient)
+}
+
+func (tw *Twitter) Post(msg string) {
+	Log = common.GetLog()
+	Env = common.GetEnv()
+	if Env != "production" {
+		Log.Println(msg)
 	}
-	return client, err
+	if Env == "production" {
+		if _, _, err := tw.Client.Statuses.Update(msg, nil); err != nil {
+			Log.Println(err)
+		}
+	}
 }

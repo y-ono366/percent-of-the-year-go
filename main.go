@@ -1,35 +1,25 @@
 package main
 
 import (
-	"fmt"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/joho/godotenv"
 	"github.com/y-ono366/percent-of-the-year-go/src/common"
 	"github.com/y-ono366/percent-of-the-year-go/src/message"
 	"github.com/y-ono366/percent-of-the-year-go/src/twitter"
 	"log"
-	"os"
 )
 
 var Env string
 var Log *log.Logger
+var tw twitter.Twitter
 
 type Response struct {
 	Message string `json:"message"`
 }
 
 func init() {
-	setEnvironment()
+	Env = common.InitEnvironment()
 	Log = common.LogInit()
-}
-
-func setEnvironment() {
-	switch os.Getenv("APP_ENV") {
-	case "production":
-		Env = "production"
-	default:
-		Env = "development"
-	}
 }
 
 func Handler() (Response, error) {
@@ -41,11 +31,8 @@ func Handler() (Response, error) {
 		}, nil
 	}
 	msg := message.CreateTweetMessage(parcent)
-	fmt.Println(msg)
-	client, err := twitter.GetTwClient()
-	if err != nil {
-	}
-	fmt.Println(client)
+	tw.GetTwClient()
+	tw.Post(msg)
 
 	return Response{
 		Message: "完了",
