@@ -16,3 +16,4 @@ vendor/
 
 .serverless
 bin/
+.env
