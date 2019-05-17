@@ -27,7 +27,9 @@ func Handler() {
 	}
 	msg := message.CreateTweetMessage(parcent)
 	tw.GetTwClient()
-	tw.Post(msg)
+	if tw.Post(msg) == false {
+		return
+	}
 	Log.Info("終了 投稿完了")
 }
 

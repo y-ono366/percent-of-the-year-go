@@ -19,7 +19,7 @@ func (tw *Twitter) GetTwClient() {
 	tw.Client = twitter.NewClient(httpClient)
 }
 
-func (tw *Twitter) Post(msg string) {
+func (tw *Twitter) Post(msg string) bool {
 	log := common.GetLog()
 	env := common.GetEnv()
 	if env != "production" {
@@ -28,6 +28,8 @@ func (tw *Twitter) Post(msg string) {
 	if env == "production" {
 		if _, _, err := tw.Client.Statuses.Update(msg, nil); err != nil {
 			log.Error(err)
+			return false
 		}
 	}
+	return true
 }
