@@ -29,7 +29,7 @@ func getArrParcentDays() []int64 {
 func getKeyFromSliceParcentDays(sliceParcents []int64) (int, bool) {
 	nowUnix := time.Now().Unix()
 	for i := 0; i < len(sliceParcents); i++ {
-		if sliceParcents[i] == nowUnix {
+		if sliceParcents[i]+60 >= nowUnix && sliceParcents[i]-60 <= nowUnix {
 			return i, true
 		}
 	}
