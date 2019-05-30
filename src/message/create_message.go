@@ -13,7 +13,7 @@ func CreateTweetMessage(parcent int) string {
 	now := time.Date(time.Now().Year(), 1, 1, 0, 0, 0, 0, loc)
 
 	next := now.AddDate(1, 0, 0)
-	message := strconv.Itoa(now.Year()) + "年の" + strconv.Itoa(parcent) + "%が終了しました\n"
+	message := strconv.Itoa(now.Year()) + "年の" + strconv.Itoa(parcent) + "%が終了しました。\n"
 	sliceNextYear := strings.Split(strconv.Itoa(next.Year()), "")
 	sliceAsciiArt := getYearAsciiArt()
 
@@ -31,6 +31,7 @@ func CreateTweetMessage(parcent int) string {
 	for i := 0; i < asciiArtMaxRow; i++ {
 		message += sliceAsciiArtMsg[0][i] + sliceAsciiArtMsg[1][i] + sliceAsciiArtMsg[2][i] + sliceAsciiArtMsg[3][i] + "\n"
 	}
+	message += "#一年の進捗bot"
 	return message
 }
 
