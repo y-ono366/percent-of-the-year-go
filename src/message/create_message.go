@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"math"
 )
 
 var asciiArtMaxRow = 6
@@ -36,22 +37,19 @@ func CreateTweetMessage(parcent int) string {
 }
 
 func createScrollNumOfAsciiArt(key int, parcent int, sliceAsciiArt [][]string) []string {
+	fParcent := float64(parcent)
+	fAsciiArtMaxRow := float64(asciiArtMaxRow)
 	yearAsciiArt := []string{}
-	oneMemo := 100 / asciiArtMaxRow
-	nextYearRow := asciiArtMaxRow - (parcent / oneMemo)
+	oneMemo := 100.0 / fAsciiArtMaxRow
+	nextYearRow := fAsciiArtMaxRow - (fParcent / oneMemo)
 	nowYearRow := 0
-	firstFlg := true
 
-	for row := 0; row < asciiArtMaxRow; row++ {
-		if row < parcent/oneMemo {
+	for row := float64(1); row <= fAsciiArtMaxRow; row++ {
+		if row <= fParcent/oneMemo {
 			nextNum := map[bool]int{true: 0, false: key + 1}[key == 9]
-			yearAsciiArt = append(yearAsciiArt, sliceAsciiArt[nextNum][nextYearRow])
+			yearAsciiArt = append(yearAsciiArt, sliceAsciiArt[nextNum][int(math.Ceil(nextYearRow))])
 			nextYearRow++
 		} else {
-			if firstFlg == true && parcent != 0 {
-				yearAsciiArt = append(yearAsciiArt, "")
-				firstFlg = false
-			}
 			yearAsciiArt = append(yearAsciiArt, sliceAsciiArt[key][nowYearRow])
 			nowYearRow++
 		}
