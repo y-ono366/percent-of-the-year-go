@@ -19,7 +19,7 @@ func getArrParcentDays() []int64 {
 	oneYearTimestamp := next.Unix() - start.Unix()
 	oneParcentSec := oneYearTimestamp / 100
 
-	for i := 0; i <= 100; i++ {
+	for i := 0; i < 100; i++ {
 		sliceParcents = append(sliceParcents, (start.Unix() + (oneParcentSec * int64(i))))
 	}
 

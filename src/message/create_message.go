@@ -1,10 +1,10 @@
 package message
 
 import (
+	"math"
 	"strconv"
 	"strings"
 	"time"
-	"math"
 )
 
 var asciiArtMaxRow = 6
@@ -14,7 +14,13 @@ func CreateTweetMessage(parcent int) string {
 	now := time.Date(time.Now().Year(), 1, 1, 0, 0, 0, 0, loc)
 
 	next := now.AddDate(1, 0, 0)
-	message := strconv.Itoa(now.Year()) + "年の" + strconv.Itoa(parcent) + "%が終了しました。\n"
+	var message string = ""
+
+	if parcent == 0 {
+		message = "☆☆☆Happy New Year☆☆☆\n"
+	} else {
+		message = strconv.Itoa(now.Year()) + "年の" + strconv.Itoa(parcent) + "%が終了しました。\n"
+	}
 	sliceNextYear := strings.Split(strconv.Itoa(next.Year()), "")
 	sliceAsciiArt := getYearAsciiArt()
 
